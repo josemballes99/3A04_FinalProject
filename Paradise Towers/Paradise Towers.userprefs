@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="Paradise Towers.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml">
+    <Files>
+      <File FileName="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
