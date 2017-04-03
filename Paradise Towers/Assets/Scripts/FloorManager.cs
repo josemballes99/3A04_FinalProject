@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
+namespace context {
+
 /// <summary>
 /// Controller class for management of floors.
 /// </summary>
@@ -10,7 +13,8 @@ public class FloorManager : MonoBehaviour {
 
     public GameObject arcadeFloor, restaurantFloor, suiteFloor;     // prefabs for floors
     public GameObject lobby;                                        // GameObject of lobby (there is only one for entire hotel, mandatory)
-    public Transform positionObject;                                // transform for centering new floors
+	public GameObject book;
+	public Transform positionObject;                                // transform for centering new floors
 
     private List<GameObject> floors = new List<GameObject>();       // list of all floors in hotel
 
@@ -30,23 +34,25 @@ public class FloorManager : MonoBehaviour {
      * "arcade" adds an arcade floor type.
      * "suite" adds a suite floor type.
      */
-    public void addFloor(string floorType)
+    public void addFloor(FloorType floorType)
     {
-        if (floorType.Equals("arcade"))
+			if (floorType.Equals(FloorType.Arcade))
         {
             GameObject newFloor = Instantiate(arcadeFloor, positionObject.position, positionObject.rotation);   // instantiates new floor
             newFloor.transform.parent = gameObject.transform;           // set new floor as child of Floors
             newFloor.transform.localScale = positionObject.localScale;  // set position of new floor to position of PositioningObject
             floors.Add(newFloor);                                       // adds floor to list of floors
             newFloor.SetActive(false);                                  // set new floor to be initially inactive
-        } else if (floorType.Equals("restaurant"))
+
+			} else if (floorType.Equals(FloorType.Restaurant))
         {
             GameObject newFloor = Instantiate(restaurantFloor, positionObject.position, positionObject.rotation);
             newFloor.transform.parent = gameObject.transform;
             newFloor.transform.localScale = positionObject.localScale;
             floors.Add(newFloor);
             newFloor.SetActive(false);
-        } else if (floorType.Equals("suite"))
+
+			} else if (floorType.Equals(FloorType.Suite))
         {
             GameObject newFloor = Instantiate(suiteFloor, positionObject.position, positionObject.rotation);
             newFloor.transform.parent = gameObject.transform;
@@ -54,6 +60,7 @@ public class FloorManager : MonoBehaviour {
             floors.Add(newFloor);
             newFloor.SetActive(false);
         }
+			FinanceMgr.addRevenueSource(FinanceMgr.Floor, floorType.revenues());
     }
 
     /**
@@ -79,4 +86,5 @@ public class FloorManager : MonoBehaviour {
     {
         DestroyObject(floor);
     }
+}
 }

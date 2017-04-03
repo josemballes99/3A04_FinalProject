@@ -1,9 +1,16 @@
-﻿<Properties StartupItem="Paradise Towers.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FloorManager.cs">
     <Files>
-      <File FileName="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FloorManager.cs" Line="16" Column="2" />
+      <File FileName="Assets\Scripts\FinanceMgr.cs" Line="10" Column="61" />
+      <File FileName="Assets\Scripts\FloorType.cs" Line="44" Column="4" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
