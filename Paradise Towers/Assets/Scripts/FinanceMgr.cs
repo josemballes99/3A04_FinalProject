@@ -6,6 +6,8 @@ namespace context {
 
 	public class FinanceMgr : MonoBehaviour
 	{
+		public GameObject window;
+		public GameObject revText;
 
 		private readonly TimeSpan origin = DateTime.Now.TimeOfDay;
 
@@ -32,7 +34,7 @@ namespace context {
 		// Use this for initialization
 		void Start ()
 		{
-
+			revText.SetActive (false);
 		}
 
 
