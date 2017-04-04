@@ -2,18 +2,15 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FloorManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\FloorManager.cs" Line="16" Column="2" />
-      <File FileName="Assets\Scripts\FinanceMgr.cs" Line="10" Column="61" />
-      <File FileName="Assets\Scripts\FloorType.cs" Line="44" Column="4" />
+      <File FileName="Assets\Scripts\FloorManager.cs" Line="23" Column="83" />
+      <File FileName="Assets\Scripts\FinanceMgr.cs" Line="37" Column="1" />
+      <File FileName="Assets\Scripts\FloorType.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint hitAction="PrintExpression" traceExpression="RevTextInactive" file="E:\UNIVERSITY\Third Year\Term 2\SFWR 3A04\UnityProject\3A04_FinalProject\Paradise Towers\Assets\Scripts\FinanceMgr.cs" line="37" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

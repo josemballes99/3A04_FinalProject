@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 namespace context {
 
 	public class FinanceMgr : MonoBehaviour
 	{
 		public GameObject window;
-		public GameObject revText;
+		public Text revText, expText, incText;
 
 		private readonly TimeSpan origin = DateTime.Now.TimeOfDay;
 
@@ -31,12 +32,19 @@ namespace context {
 			return expensePerMinute; // * time elapsed
 		}
 
+		void Awake (){
+			//window.SetActive (false);
+		}
+
 		// Use this for initialization
 		void Start ()
 		{
-			revText.SetActive (false);
+			revText.text = revenues().ToString();
+			expText.text = expenses().ToString();
+			incText.text = (revenues() - expenses ()).ToString();
 		}
 
+		//Add data structure to track financial events so we can put them in the scrollview
 
 		public static void addRevenueSource(int source, int amt){
 			revenuePerMinute += amt;
@@ -51,7 +59,11 @@ namespace context {
 		// Update is called once per frame
 		void Update ()
 		{
-	
+			revenuePerMinute+=2;
+			expensePerMinute++;
+			revText.text = revenues().ToString();
+			expText.text = expenses().ToString();
+			incText.text = (revenues() - expenses ()).ToString();
 		}
 	}
 
