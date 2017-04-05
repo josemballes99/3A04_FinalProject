@@ -14,14 +14,20 @@ namespace context {
 
 public class ObjMgr : MonoBehaviour {
 
-	public static GameObject window;
+	public GameObject window;
 	public Text currProgress;
-	public ScrollRect rect;
+	
 	public TextAsset data;
 	public int current = 0;
 	
 	public static Dictionary<int, Objective> objects = new Dictionary<int, Objective> ();
 
+	//New stuff for scrollRect
+
+	public Text protoItem;
+	public GameObject listView;
+
+	//End scrollRect stuff here
 	
 	void Awake(){
 			objects.Clear ();
