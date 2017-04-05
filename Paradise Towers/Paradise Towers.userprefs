@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
+=======
+﻿<Properties StartupItem="Paradise Towers.csproj">
+>>>>>>> master
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FloorManager.cs">
     <Files>

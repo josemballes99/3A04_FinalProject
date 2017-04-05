@@ -137,6 +137,9 @@
     <Compile Include="Assets\Tiled2Unity\Scripts\Editor\TiledAssetPostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\MainMenu\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\MainMenu\Materials\UI-Default-No-Alpha.shader" />
+    <None Include="Assets\MainMenu\Textures and Sprites\SF UI\Background\LICENSE.txt" />
     <None Include="Assets\Tiled2Unity\Imported\_ReadMe.txt" />
     <None Include="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\lobby.tiled2unity.xml" />

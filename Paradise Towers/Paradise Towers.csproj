@@ -76,6 +76,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FloorManager.cs" />
+    <Compile Include="Assets\Scripts\HotelManager.cs" />
+    <Compile Include="Assets\Scripts\MenuScript\LoadLobby.cs" />
+    <Compile Include="Assets\Scripts\MenuScript\QuitOnClick.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ActiveStateToggler.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ApplicationManager.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ChangeColor.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\DragMe.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\DragPanel.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\DropMe.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\PanelManager.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ResizePanel.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ScrollDetailTexture.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ShowSliderValue.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\TiltWindow.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ImportBehaviour.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\Layer.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ObjectLayer.cs" />
@@ -88,6 +102,9 @@
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\TiledMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\MainMenu\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\MainMenu\Materials\UI-Default-No-Alpha.shader" />
+    <None Include="Assets\MainMenu\Textures and Sprites\SF UI\Background\LICENSE.txt" />
     <None Include="Assets\Tiled2Unity\Imported\_ReadMe.txt" />
     <None Include="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\lobby.tiled2unity.xml" />
