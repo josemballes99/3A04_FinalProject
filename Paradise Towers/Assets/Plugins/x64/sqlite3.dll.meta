@@ -9,16 +9,32 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
-    Any:
-      enabled: 1
-      settings: {}
-    Editor:
+    Android:
       enabled: 0
+      settings:
+        CPU: ARMv7
+    Any:
+      enabled: 0
+      settings:
+        Exclude Android: 1
+        Exclude Editor: 0
+        Exclude Linux: 0
+        Exclude Linux64: 0
+        Exclude LinuxUniversal: 0
+        Exclude OSXIntel: 0
+        Exclude OSXIntel64: 0
+        Exclude OSXUniversal: 0
+        Exclude Win: 0
+        Exclude Win64: 1
+        Exclude iOS: 1
+    Editor:
+      enabled: 1
       settings:
         CPU: x86_64
         DefaultValueInitialized: true
+        OS: AnyOS
     Linux:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: None
     Linux64:
@@ -28,9 +44,9 @@ PluginImporter:
     LinuxUniversal:
       enabled: 1
       settings:
-        CPU: x86_64
+        CPU: AnyCPU
     OSXIntel:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: None
     OSXIntel64:
@@ -38,17 +54,22 @@ PluginImporter:
       settings:
         CPU: AnyCPU
     OSXUniversal:
-      enabled: 0
-      settings:
-        CPU: x86_64
-    Win:
-      enabled: 0
-      settings:
-        CPU: None
-    Win64:
       enabled: 1
       settings:
         CPU: AnyCPU
+    Win:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+    Win64:
+      enabled: 0
+      settings:
+        CPU: None
+    iOS:
+      enabled: 0
+      settings:
+        CompileFlags: 
+        FrameworkDependencies: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 

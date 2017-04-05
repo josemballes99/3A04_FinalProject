@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
-
 
 namespace context {
 
@@ -15,16 +15,20 @@ public class FloorManager : MonoBehaviour {
     public GameObject lobby;                                        // GameObject of lobby (there is only one for entire hotel, mandatory)
 	public GameObject book;
 	public Transform positionObject;                                // transform for centering new floors
-
+	
+	public GameObject window;
+	public Text revText;
     private List<GameObject> floors = new List<GameObject>();       // list of all floors in hotel
 
 	void Awake(){
 		floors.Add(lobby);      // add the mandatory lobby floor to list of floors
+		//load();		
 	}
 
 	// Use this for initialization
-	void Start () {
-        
+	void Start () {			
+		//ObjMgr.window.SetActive (false);
+		window.SetActive (true);
     }
 	
 	// Update is called once per frame
@@ -90,5 +94,7 @@ public class FloorManager : MonoBehaviour {
     {
         DestroyObject(floor);
     }
-}
+			
+
+	}
 }

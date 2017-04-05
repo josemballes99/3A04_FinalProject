@@ -3,6 +3,9 @@ using System.Collections;
 using System;
 using UnityEngine.UI;
 
+using Mono.Data.Sqlite;
+using System.Data;
+
 namespace context {
 
 	public class FinanceMgr : MonoBehaviour
@@ -19,7 +22,7 @@ namespace context {
 		static int[] expenseSource = new int[2]{0,0};
 		static int revenuePerMinute = 0;
 		static int expensePerMinute = 0;
-	
+
 		public static int incomePerMinute (){
 			return (revenuePerMinute - expensePerMinute);
 		}
@@ -34,6 +37,7 @@ namespace context {
 
 		void Awake (){
 			//window.SetActive (false);
+			Debug.Log("fstart");
 		}
 
 		// Use this for initialization
@@ -43,6 +47,7 @@ namespace context {
 			expText.text = expenses().ToString();
 			incText.text = (revenues() - expenses ()).ToString();
 		}
+			
 
 		//Add data structure to track financial events so we can put them in the scrollview
 
@@ -64,7 +69,41 @@ namespace context {
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
 			incText.text = (revenues() - expenses ()).ToString();
+			if (revenues () == 200) {
+				window.SetActive (false);
+			}
 		}
+
+
+//		void load () {
+//			string dbURL = "URI=file:Objectives.db"; //Path to database.
+//
+//			IDbConnection connection;
+//			connection = (IDbConnection) new SqliteConnection(dbURL);
+//			connection.Open(); //Open connection to the database.
+//
+//			IDbCommand cmd = connection.CreateCommand();
+//			//string sqlQuery = "SELECT value,name, randomSequence " + "FROM PlaceSequence";
+//			string sqlQuery = "SELECT * FROM Objectives";
+//			//string sqlQuery = "SELECT name FROM sqlite_master WHERE type='table'";
+//			cmd.CommandText = sqlQuery;
+//
+//			IDataReader reader = cmd.ExecuteReader();
+//			while (reader.Read())
+//			{
+//				int value = reader.GetInt32(0);
+//				//string name = reader.GetString(0);
+//				//int rand = reader.GetInt32(2);
+//				Debug.Log( "table= "+name);//+"  name ="+name+"  random ="+  rand);
+//				revText.text = value;
+//			}
+//			reader.Close();
+//			reader = null;
+//			cmd.Dispose();
+//			cmd = null;
+//			connection.Close();
+//			connection = null;
+//		}
 	}
 
 }
