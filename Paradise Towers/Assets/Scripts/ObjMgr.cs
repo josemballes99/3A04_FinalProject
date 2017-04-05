@@ -16,6 +16,7 @@ namespace context {
 public class ObjMgr : MonoBehaviour {
 
 	public GameObject window;
+	public Text currObj;
 	public Text currProgress;
 	
 	public TextAsset data;
@@ -66,7 +67,8 @@ public class ObjMgr : MonoBehaviour {
 	void Start () {
 		Debug.Log("Ostart");
 		window.SetActive (true);
-		currProgress.text = objects.ElementAt (0).caption;
+		currProgress.text = objects.ElementAt (0).progress + "%";
+		currObj.text = objects.ElementAt (0).caption;
 		
 	}
 	
