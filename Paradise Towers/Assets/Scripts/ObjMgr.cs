@@ -9,6 +9,7 @@ using System.IO;
 
 using Mono.Data.Sqlite;
 using System.Data;
+using System.Linq;
 
 namespace context {
 
@@ -20,7 +21,8 @@ public class ObjMgr : MonoBehaviour {
 	public TextAsset data;
 	public int current = 0;
 	
-	public static Dictionary<int, Objective> objects = new Dictionary<int, Objective> ();
+	//public static Dictionary<int, Objective> objects = new Dictionary<int, Objective> ();
+	public static List<Objective> objects = new List<Objective> ();
 
 	//New stuff for scrollRect
 
@@ -31,7 +33,13 @@ public class ObjMgr : MonoBehaviour {
 	
 	void Awake(){
 			objects.Clear ();
-			loadDB ();
+			var objectives = Queries.loadDB ();
+
+			if (objectives != null) {
+				foreach (Objective obj in objectives){
+					objects.Add (obj);
+				}
+			}
 //			Debug.Log("Oawake");
 //			data = Resources.Load("objectives.csv") as TextAsset;
 //			if (data == null){
@@ -57,6 +65,8 @@ public class ObjMgr : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log("Ostart");
+		window.SetActive (true);
+		currProgress.text = objects.ElementAt (0).caption;
 		
 	}
 	
@@ -116,7 +126,7 @@ public class ObjMgr : MonoBehaviour {
 				int condition = reader.GetInt32 (5);
 
 				Objective obj = new Objective (id, caption, progress, reward, query, condition);
-				objects.Add (id, obj);
+				objects.Add (obj);
 				//Debug.Log( "table= "+name);//+"  name ="+name+"  random ="+  rand);
 			}
 			reader.Close();

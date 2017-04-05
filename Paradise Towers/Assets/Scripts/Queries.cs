@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 using Mono.Data.Sqlite;
 using System.Data;
@@ -10,7 +11,7 @@ public class Queries
 
 
 
-	void loadDB () {
+	public static List<Objective> loadDB () {
 		string dbURL = "URI=file:Objectives.db"; //Path to database.
 
 		IDbConnection connection;
@@ -23,6 +24,9 @@ public class Queries
 		cmd.CommandText = sqlQuery;
 
 		IDataReader reader = cmd.ExecuteReader();
+
+		List<Objective> objects = new List<Objective> ();
+
 		while (reader.Read())
 		{
 			int id = reader.GetInt32(0);
@@ -33,6 +37,7 @@ public class Queries
 			int condition = reader.GetInt32 (5);
 
 			Objective obj = new Objective (id, caption, progress, reward, query, condition);
+			objects.Add (obj);
 			//Debug.Log( "table= "+name);//+"  name ="+name+"  random ="+  rand);
 		}
 		reader.Close();
@@ -41,6 +46,8 @@ public class Queries
 		cmd = null;
 		connection.Close();
 		connection = null;
+
+		return objects;
 	}
 
 

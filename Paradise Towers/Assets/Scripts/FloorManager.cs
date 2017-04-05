@@ -101,7 +101,9 @@ public class FloorManager : MonoBehaviour {
      */
     public void removeFloor(GameObject floor)
     {
+		int position = 0;
         DestroyObject(floor);
+		Queries.removeFloor (position);
     }
 			
 
