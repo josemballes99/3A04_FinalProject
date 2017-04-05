@@ -29,7 +29,8 @@ public class ObjMgr : MonoBehaviour {
 
 	public Text protoItem;
 	public GameObject listView;
-
+	
+	public static List<Text> boxes = new List<Text>();
 	//End scrollRect stuff here
 	
 	void Awake(){
@@ -37,10 +38,31 @@ public class ObjMgr : MonoBehaviour {
 			var objectives = Queries.loadDB ();
 
 			if (objectives != null) {
+				int i = 0;
+				bool first = true;
 				foreach (Objective obj in objectives){
 					objects.Add (obj);
+					if (i == 0) {
+						i++;
+						continue;
+					}
+
+					Text box;
+					if (first == true) {
+						box = protoItem;
+						first = false;
+					} else {
+						box = Instantiate (protoItem);
+					}
+
+					box.transform.SetParent (listView.transform);
+					box.text = obj.caption + "\t\t\t\t" + obj.progress + "%";
+					boxes.Add (box);
 				}
 			}
+
+
+
 //			Debug.Log("Oawake");
 //			data = Resources.Load("objectives.csv") as TextAsset;
 //			if (data == null){
