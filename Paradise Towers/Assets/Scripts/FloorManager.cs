@@ -19,6 +19,8 @@ public class FloorManager : MonoBehaviour {
 	public GameObject window;
 	public Text revText;
     private List<GameObject> floors = new List<GameObject>();       // list of all floors in hotel
+	
+	public static int fid = 1;
 
 	void Awake(){
 		floors.Add(lobby);      // add the mandatory lobby floor to list of floors
@@ -69,6 +71,13 @@ public class FloorManager : MonoBehaviour {
             newFloor.SetActive(false);
         }
 			FinanceMgr.addRevenueSource(FinanceMgr.Floor, floorType.revenues());
+			Queries.addFloor (fid, floorType.getType(), FinanceMgr.tid, floorType.getCost());
+			fid++;
+
+			//INSERT INTO FLOORS (pos, type, level) VALUES (floors.size() -1, floorType.type(), 0)
+			//INSERT INTO Occupants (pos, num) VALUES(pos, 0)
+			//tid += 1; //source = {floor : 0, upgrade : 1}
+			//INSERT INTO Cost(tid, source, amt) VALUES (tid, 0, floorType.cost())
     }
 
     /**

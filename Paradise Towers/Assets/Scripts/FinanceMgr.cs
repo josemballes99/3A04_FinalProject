@@ -15,6 +15,7 @@ namespace context {
 
 		private readonly TimeSpan origin = DateTime.Now.TimeOfDay;
 
+		public static int tid = 0;
 		public static int Floor = 0;
 		public static int Customer = 1;
 
@@ -59,6 +60,8 @@ namespace context {
 		public static void addExpenseSource(int source, int amt){
 			expensePerMinute += amt;
 			expenseSource [source]++;
+
+			//INSERT INTO COST (tid, source, amt) VALUES (tid, source, amt);
 		}
 
 		// Update is called once per frame

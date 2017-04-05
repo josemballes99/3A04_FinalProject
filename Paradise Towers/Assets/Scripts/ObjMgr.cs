@@ -147,6 +147,7 @@ public class Objective
 		this.query = query;
 		this.reward = reward;
 		this.condition = condition;
+
 	}
 
 }

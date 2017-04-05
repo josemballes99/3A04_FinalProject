@@ -25,6 +25,14 @@ namespace context
 			this.id = FloorType.floors [type];
 		}
 
+		public int getCost(){
+			return cost;
+		}
+
+		public int getType(){
+			return type;
+		}
+
 		public int revenues()
 		{
 			return revenue;
