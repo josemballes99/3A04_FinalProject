@@ -18,9 +18,13 @@ public class FloorManager : MonoBehaviour {
 
     private List<GameObject> floors = new List<GameObject>();       // list of all floors in hotel
 
+	void Awake(){
+		floors.Add(lobby);      // add the mandatory lobby floor to list of floors
+	}
+
 	// Use this for initialization
 	void Start () {
-        floors.Add(lobby);      // add the mandatory lobby floor to list of floors
+        
     }
 	
 	// Update is called once per frame
