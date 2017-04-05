@@ -77,8 +77,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\FloorManager.cs" />
     <Compile Include="Assets\Scripts\HotelManager.cs" />
-    <Compile Include="Assets\Scripts\MenuScript\LoadLobby.cs" />
-    <Compile Include="Assets\Scripts\MenuScript\QuitOnClick.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ChangeColor.cs" />
