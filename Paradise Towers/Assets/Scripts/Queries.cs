@@ -48,6 +48,86 @@ public class Queries
 		return objects;
 	}
 
+	public static List<string> loadTransactions () {		
+
+		IDbConnection connection = connect(dbURL);
+		IDbCommand cmd = connection.CreateCommand();
+
+		string sqlQuery = "SELECT * FROM Cost";
+		//string sqlQuery = "SELECT name FROM sqlite_master WHERE type='table'";
+		cmd.CommandText = sqlQuery;
+
+		IDataReader reader = cmd.ExecuteReader();
+		List<string> events = new List<string> ();
+		while (reader.Read())
+		{
+			int tid = reader.GetInt32(0);
+			string evt = reader.GetString (1);
+			int amt = reader.GetInt32(2);
+			events.Add (tid.ToString () + "\t\t" + evt + "\t\t\t" + amt);
+		}
+		reader.Close();
+		reader = null;
+		cmd.Dispose();
+		cmd = null;
+		connection.Close();
+		connection = null;
+
+		return events;
+	}
+
+
+	public static int loadExpenses(){
+		IDbConnection connection = connect (dbURL);
+		IDbCommand command = connection.CreateCommand();
+		command.CommandText = "SELECT SUM(amt) FROM Cost";
+		IDataReader reader = command.ExecuteReader();
+		int expense = 0;
+
+		while (reader.Read ()) {
+			if (!reader.IsDBNull(0)) {
+				int id = reader.GetInt32 (0);
+				expense = id;
+			}
+		}
+		connection.Close ();
+		return expense;
+	}
+
+	public static int loadIncome(){
+		IDbConnection connection = connect (dbURL);
+		IDbCommand command = connection.CreateCommand();
+		command.CommandText = "SELECT SUM(amt) FROM Income";
+		IDataReader reader = command.ExecuteReader();
+		int income = 0;
+
+		while (reader.Read ()) {
+			if (!reader.IsDBNull(0)) {
+				int id = reader.GetInt32 (0);
+				income = id;
+			}
+		}
+		connection.Close ();
+		return income;
+	}
+
+	public static int loadRevenue(){
+		IDbConnection connection = connect (dbURL);
+		IDbCommand command = connection.CreateCommand();
+		command.CommandText = "SELECT SUM(amt) FROM Revenue";
+		IDataReader reader = command.ExecuteReader();
+		int revenue = 0;
+
+		while (reader.Read ()) {
+			if (!reader.IsDBNull(0)) {
+				int id = reader.GetInt32 (0);
+				revenue = id;
+			}
+		}
+		connection.Close ();
+		return revenue;
+	}
+
 
 	public static void addFloor (int num, int type, int tid, int cost){
 
@@ -128,7 +208,7 @@ public class Queries
 		IDbConnection connection = Queries.connect (Queries.dbURL);
 
 		IDbCommand command = connection.CreateCommand();
-		command.CommandText = "CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source TEXT, amt INTEGER)";
+		command.CommandText = "CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source TEXT, amt INTEGER, PRIMARY KEY(tid))";
 		command.ExecuteNonQuery();
 
 		IDbCommand command2 = connection.CreateCommand();
@@ -142,5 +222,22 @@ public class Queries
 		IDbCommand command4 = connection.CreateCommand();
 		command4.CommandText = "CREATE TABLE IF NOT EXISTS Upgrade(ftype INTEGER, amt INTEGER)";
 		command4.ExecuteNonQuery();
+
+		IDbCommand command5 = connection.CreateCommand();
+		command5.CommandText = "CREATE TABLE IF NOT EXISTS Income(amt INTEGER)";
+		command5.ExecuteNonQuery();
+
+		IDbCommand command6 = connection.CreateCommand();
+		command6.CommandText = "CREATE TABLE IF NOT EXISTS Revenue(amt INTEGER)";
+		command6.ExecuteNonQuery();
+
+
+		command.Dispose ();
+		command2.Dispose ();
+		command3.Dispose ();
+		command4.Dispose ();
+		command5.Dispose ();
+		command6.Dispose ();
+		connection.Close ();
 	}
 }

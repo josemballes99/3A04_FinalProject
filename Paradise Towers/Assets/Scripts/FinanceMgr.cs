@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 using Mono.Data.Sqlite;
 using System.Data;
+using System.Linq;
 
 namespace context {
 
@@ -14,8 +15,6 @@ namespace context {
 	{
 		public GameObject window;
 		public Text revText, expText, incText;
-
-		public static List<Objective> objects = new List<Objective> ();
 
 		public Text protoItem;
 		public GameObject listView;	
@@ -33,8 +32,8 @@ namespace context {
 		static int[] expenseSource = new int[2]{0,0};
 		static int revenuePerPeriod = 0;
 
-		static int expense = 0;
-		static int netRevenue = 0;
+		public static int expense = 0;
+		public static int netRevenue = 0;
 
 		public static int netIncome(){
 			return netRevenue - expense;
@@ -50,6 +49,10 @@ namespace context {
 
 		void Awake (){
 			Queries.createLog();
+			netRevenue = Queries.loadIncome ();
+			revenuePerPeriod = Queries.loadRevenue ();
+			expense = Queries.loadExpenses ();
+			protoItem.text = "";
 		}
 
 		// Use this for initialization
@@ -89,10 +92,44 @@ namespace context {
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
 			incText.text = (revenues() - expenses()).ToString();
+
+			var f_log = Queries.loadTransactions ();
+
+			if (f_log != null) {				
+				bool first = true;
+				foreach (string trans in f_log) {
+					Text box;
+					if (first == true) {
+						box = protoItem;
+						first = false;
+					} else {
+						box = Instantiate (protoItem);
+						box.transform.SetParent (listView.transform);
+						boxes.Add (box);
+					}
+					box.text = trans;
+				}
+			}
+
+			IDbConnection connection = Queries.connect (Queries.dbURL);
+
+			IDbCommand command = connection.CreateCommand();
+			command.CommandText = "INSERT INTO Income(amt) VALUES ($1)";
+			command = Queries.addParam (command, DbType.Int32, "1", revenuePerPeriod * Convert.ToInt32(periods));
+			command.ExecuteNonQuery();
+
+			IDbCommand command2 = connection.CreateCommand();
+			command2.CommandText = "UPDATE Revenue SET amt=$1";
+			command2 = Queries.addParam (command, DbType.Int32, "1", revenuePerPeriod);
+			command2.ExecuteNonQuery();
+			command.Dispose ();
+			command2.Dispose ();
+			connection.Close ();
+
 		}
 
 		public static void addFloor(FloorType floor){
-			string stmt = "INSERT INTO Cost (tid, source, amt) VALUES ($1, 'Purchased $2 Floor', $3)";
+			string stmt = "INSERT INTO Cost (tid, source, amt) VALUES ($1, 'Purchased Floor for', $2)";
 
 			IDbConnection connection = Queries.connect (Queries.dbURL);
 
@@ -103,8 +140,8 @@ namespace context {
 			string name = FloorType.floorMap[type];
 
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.String, "2", name);
-			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
+			//command = Queries.addParam (command, DbType.String, "2", name);
+			command = Queries.addParam (command, DbType.Int32, "2", floor.getCost());				
 			command.ExecuteNonQuery();
 			command.Dispose ();
 			connection.Close ();
@@ -114,7 +151,7 @@ namespace context {
 		}
 
 		public static void addUpgrade(FloorType floor){
-			string stmt = "INSERT INTO Cost (tid, sourcee, amt) VALUES ($1, Purchased $2 Floor Upgrade, $3)";
+			string stmt = "INSERT INTO Cost (tid, sourcee, amt) VALUES ($1, Purchased Floor Upgrade, $3)";
 			string stmt2 = "UPDATE Floors SET level=level+1 WHERE pos=$4";
 
 			IDbConnection connection = Queries.connect (Queries.dbURL);
@@ -122,7 +159,7 @@ namespace context {
 			command.CommandText = stmt;
 
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.AnsiString, "2", FloorType.floorMap[floor.getType()]);
+			//command = Queries.addParam (command, DbType.AnsiString, "2", FloorType.floorMap[floor.getType()]);
 			command = Queries.addParam (command, DbType.Int32, "3", FloorType.upgrades[floor.tier()]);				
 			command.ExecuteNonQuery();
 			command.Dispose ();
