@@ -97,8 +97,10 @@
     <Compile Include="Assets\Scripts\Supporting Scripts\DragPanel.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\DropMe.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\PanelManager.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\RemoveFloorButtons.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ResizePanel.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ScrollDetailTexture.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\SelectFloorButtons.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\TiltWindow.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ImportBehaviour.cs" />
