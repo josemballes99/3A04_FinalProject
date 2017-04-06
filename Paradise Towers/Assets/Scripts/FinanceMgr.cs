@@ -16,8 +16,6 @@ namespace context {
 
 		private static Stopwatch timer = new Stopwatch();
 
-		private readonly TimeSpan origin = DateTime.Now.TimeOfDay;
-
 		public static int tid = 0;
 		public static int Floor = 0;
 		public static int Customer = 1;

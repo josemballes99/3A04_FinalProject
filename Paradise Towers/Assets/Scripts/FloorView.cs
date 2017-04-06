@@ -13,9 +13,7 @@ public class FloorView : MonoBehaviour
     public GameObject arcadeFloor, restaurantFloor, suiteFloor;     // prefabs for floors
     public Transform positionObject;
 
-    public GameObject book;
     public GameObject window;
-    public Text revText;
 
     private FloorManager floorManager;
 
