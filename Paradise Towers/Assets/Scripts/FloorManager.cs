@@ -43,8 +43,7 @@ namespace context
         public void addFloor(FloorType floor)
         {
             floors.Add(floor);
-			//FinanceMgr.addRevenueSource(FinanceMgr.Floor, floor.revenues());
-			//Queries.addFloor (fid, floor.getType(), FinanceMgr.tid, floor.getCost());
+			Queries.addFloor (fid, floor.getType(), FinanceMgr.tid, floor.getCost());
 			FinanceMgr.addFloor (floor);
 			fid++;
         }

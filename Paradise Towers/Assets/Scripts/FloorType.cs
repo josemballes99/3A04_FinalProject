@@ -12,10 +12,12 @@ namespace context
         public static readonly FloorType Lobby = new FloorType(3, 0, 0);
 
 		public static Dictionary<int, string> floorMap;
+		public static Dictionary<int, int> upgrades;
 
         public Guid InstanceID { get; private set; }
 
         private static int[] floors;
+		private int level = 0;
         private int revenue;
         private readonly int type;
         private readonly int cost;
@@ -28,7 +30,14 @@ namespace context
 			floorMap.Add(1, "Restaurant");
 			floorMap.Add(2, "Suite");
 			floorMap.Add(3, "Lobby");
+
+			upgrades = new Dictionary<int, int>();
+			upgrades.Add (1, 2000);
+			upgrades.Add (2, 10000);
+			upgrades.Add (3, 30000);
 		}
+
+
 
         public FloorType(int type, int revenue, int cost)
         {
@@ -68,6 +77,14 @@ namespace context
         {
             return revenue;
         }
+
+		public int tier(){
+			return level;
+		}
+
+		public void upgrade(){
+			level += 1;
+		}
 
         public override bool Equals(object obj)
         {

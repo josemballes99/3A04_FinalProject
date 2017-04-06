@@ -103,16 +103,17 @@ namespace context {
 			string name = FloorType.floorMap[type];
 
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.String, "2", name);//Make string
+			command = Queries.addParam (command, DbType.String, "2", name);
 			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
 			command.ExecuteNonQuery();
 			command.Dispose ();
 			connection.Close ();
 			revenuePerPeriod += floor.revenues();
+			expense += floor.getCost ();
 			tid++;
 		}
 
-		public static void addUpgrade(FloorType upgrade){
+		public static void addUpgrade(FloorType floor){
 			string stmt = "INSERT INTO Cost (tid, sourcee, amt) VALUES ($1, Purchased $2 Floor Upgrade, $3)";
 			string stmt2 = "UPDATE Floors SET level=level+1 WHERE pos=$4";
 
@@ -121,12 +122,19 @@ namespace context {
 			command.CommandText = stmt;
 
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.AnsiString, "2", upgrade.getType());
-			command = Queries.addParam (command, DbType.Int32, "3", upgrade.getCost());				
+			command = Queries.addParam (command, DbType.AnsiString, "2", FloorType.floorMap[floor.getType()]);
+			command = Queries.addParam (command, DbType.Int32, "3", FloorType.upgrades[floor.tier()]);				
 			command.ExecuteNonQuery();
 			command.Dispose ();
+
+			IDbCommand command2 = connection.CreateCommand();
+			command2.CommandText = stmt2;
+			command = Queries.addParam (command, DbType.Int32, "4", FloorType.upgrades[floor.tier()]);
+			command2.Dispose ();
 			connection.Close ();
-			revenuePerPeriod += upgrade.revenues();
+
+			expense += FloorType.upgrades[floor.tier()];
+			floor.upgrade ();
 			tid++;
 		}
 

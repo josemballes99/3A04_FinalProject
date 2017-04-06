@@ -73,7 +73,6 @@ namespace context {
 			window.SetActive (true);
 			currProgress.text = objects.ElementAt (0).progress + "%";
 			currObj.text = objects.ElementAt (0).caption;
-
 		}
 
 		// Update is called once per frame
