@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
@@ -73,11 +73,25 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>Assets\Plugins\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>Assets\Plugins\System.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\FinanceMgr.cs" />
     <Compile Include="Assets\Scripts\FloorManager.cs" />
+    <Compile Include="Assets\Scripts\FloorType.cs" />
+    <Compile Include="Assets\Scripts\FloorView.cs" />
     <Compile Include="Assets\Scripts\HotelManager.cs" />
+    <Compile Include="Assets\Scripts\ObjMgr.cs" />
+    <Compile Include="Assets\Scripts\Objective.cs" />
+    <Compile Include="Assets\Scripts\Queries.cs" />
+    <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ActiveStateToggler.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\AddFloorButtons.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ChangeColor.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\DragMe.cs" />
