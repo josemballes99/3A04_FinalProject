@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAI : MonoBehaviour {
+public class CustomerView : MonoBehaviour {
 
 	Animator anim;
 
