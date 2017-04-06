@@ -23,19 +23,21 @@ public class FloorManager : MonoBehaviour {
 	public static int fid = 1;
 
 	void Awake(){
-		floors.Add(lobby);      // add the mandatory lobby floor to list of floors
-		//load();		
+		Queries.createLog();
+		floors.Add(lobby);      // add the mandatory lobby floor to list of floors				
 	}
 
+
 	// Use this for initialization
-	void Start () {			
-		//ObjMgr.window.SetActive (false);
+	void Start () {
 		window.SetActive (true);
     }
 	
+
 	// Update is called once per frame
 	void Update () {
 	}
+
 
     /**
      * Adds a floor to the hotel given a floor type.
@@ -72,12 +74,9 @@ public class FloorManager : MonoBehaviour {
         }
 			FinanceMgr.addRevenueSource(FinanceMgr.Floor, floorType.revenues());
 			Queries.addFloor (fid, floorType.getType(), FinanceMgr.tid, floorType.getCost());
+			FinanceMgr.addFloor (floorType);
 			fid++;
 
-			//INSERT INTO FLOORS (pos, type, level) VALUES (floors.size() -1, floorType.type(), 0)
-			//INSERT INTO Occupants (pos, num) VALUES(pos, 0)
-			//tid += 1; //source = {floor : 0, upgrade : 1}
-			//INSERT INTO Cost(tid, source, amt) VALUES (tid, 0, floorType.cost())
     }
 
     /**

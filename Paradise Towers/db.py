@@ -27,7 +27,7 @@ cursor.execute("INSERT INTO Objectives (id, caption, progress, reward, query, co
 
 
 
-##cursor.execute("CREATE TABLE Cost(tid INTEGER, source INTEGER, amt INTEGER)")
-##cursor.execute("CREATE TABLE Floors(pos INTEGER, type INTEGER, level INTEGER)")
-##cursor.execute("CREATE TABLE Occupants(pos INTEGER, num INTEGER)")
-##cursor.execute("CREATE TABLE Upgrade(ftype INTEGER, amt INTEGER)")
+##cursor.execute("CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source INTEGER, amt INTEGER)")
+##cursor.execute("CREATE TABLE IF NOT EXISTS Floors(pos INTEGER, type INTEGER, level INTEGER)")
+##cursor.execute("CREATE TABLE IF NOT EXISTS Occupants(pos INTEGER, num INTEGER)")
+##cursor.execute("CREATE TABLE IF NOT EXISTS Upgrade(ftype INTEGER, amt INTEGER)")

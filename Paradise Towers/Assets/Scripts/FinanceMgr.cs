@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 using System;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ namespace context {
 		public GameObject window;
 		public Text revText, expText, incText;
 
-		private readonly TimeSpan origin = DateTime.Now.TimeOfDay;
+		private static Stopwatch timer = new Stopwatch();
 
 		public static int tid = 0;
 		public static int Floor = 0;
@@ -37,8 +38,9 @@ namespace context {
 		}
 
 		void Awake (){
-			//window.SetActive (false);
-			Debug.Log("fstart");
+			Queries.createLog();
+			timer.Reset ();
+			timer.Start ();
 		}
 
 		// Use this for initialization
@@ -66,47 +68,68 @@ namespace context {
 
 		// Update is called once per frame
 		void Update ()
-		{
+		{			
+			if (timer.ElapsedMilliseconds < 1000) {
+				return;
+			}
 			revenuePerMinute+=2;
 			expensePerMinute++;
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
 			incText.text = (revenues() - expenses ()).ToString();
-			if (revenues () == 200) {
-				window.SetActive (false);
-			}
+
+			timer.Reset ();
+			timer.Start ();
 		}
 
+		public static void addFloor(FloorType floor){
+			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Purchased $2 Floor, $3)";
 
-//		void load () {
-//			string dbURL = "URI=file:Objectives.db"; //Path to database.
-//
-//			IDbConnection connection;
-//			connection = (IDbConnection) new SqliteConnection(dbURL);
-//			connection.Open(); //Open connection to the database.
-//
-//			IDbCommand cmd = connection.CreateCommand();
-//			//string sqlQuery = "SELECT value,name, randomSequence " + "FROM PlaceSequence";
-//			string sqlQuery = "SELECT * FROM Objectives";
-//			//string sqlQuery = "SELECT name FROM sqlite_master WHERE type='table'";
-//			cmd.CommandText = sqlQuery;
-//
-//			IDataReader reader = cmd.ExecuteReader();
-//			while (reader.Read())
-//			{
-//				int value = reader.GetInt32(0);
-//				//string name = reader.GetString(0);
-//				//int rand = reader.GetInt32(2);
-//				Debug.Log( "table= "+name);//+"  name ="+name+"  random ="+  rand);
-//				revText.text = value;
-//			}
-//			reader.Close();
-//			reader = null;
-//			cmd.Dispose();
-//			cmd = null;
-//			connection.Close();
-//			connection = null;
-//		}
+			IDbConnection connection = Queries.connect (Queries.dbURL);
+
+			IDbCommand command = connection.CreateCommand();
+			command.CommandText = stmt;
+
+			command = Queries.addParam (command, DbType.Int32, "1", tid);
+			command = Queries.addParam (command, DbType.AnsiString, "2", floor.getType());
+			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
+			command.ExecuteNonQuery();
+			tid++;
+		}
+
+		public static void addUpgrade(FloorType floor){
+			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Purchased $2 Floor Upgrade, $3)";
+
+			IDbConnection connection = Queries.connect (Queries.dbURL);
+			IDbCommand command = connection.CreateCommand();
+			command.CommandText = stmt;
+
+
+			command = Queries.addParam (command, DbType.Int32, "1", tid);
+			command = Queries.addParam (command, DbType.AnsiString, "2", floor.getType());
+			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
+
+			command.ExecuteNonQuery();
+			tid++;
+		}
+
+		public static void addClient(FloorType floor){
+			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Added worker to $2 Floor, $3)";
+
+			IDbConnection connection = Queries.connect (Queries.dbURL);
+			IDbCommand command = connection.CreateCommand();
+			command.CommandText = stmt;
+
+			command = Queries.addParam (command, DbType.Int32, "1", tid);
+			command = Queries.addParam (command, DbType.AnsiString, "2", floor.getType());
+			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
+
+			command.ExecuteNonQuery();
+			tid++;
+		}			
+
 	}
+
+
 
 }
