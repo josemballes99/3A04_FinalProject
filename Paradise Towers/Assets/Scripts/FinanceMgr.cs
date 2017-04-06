@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using UnityEngine.UI;
@@ -13,6 +14,13 @@ namespace context {
 	{
 		public GameObject window;
 		public Text revText, expText, incText;
+
+		public static List<Objective> objects = new List<Objective> ();
+
+		public Text protoItem;
+		public GameObject listView;	
+		public static List<Text> boxes = new List<Text>();
+
 
 		private static Stopwatch timer = new Stopwatch();
 
