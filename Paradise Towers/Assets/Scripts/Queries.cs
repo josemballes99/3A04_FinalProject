@@ -128,7 +128,7 @@ public class Queries
 		IDbConnection connection = Queries.connect (Queries.dbURL);
 
 		IDbCommand command = connection.CreateCommand();
-		command.CommandText = "CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source INTEGER, amt INTEGER)";
+		command.CommandText = "CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source TEXT, amt INTEGER)";
 		command.ExecuteNonQuery();
 
 		IDbCommand command2 = connection.CreateCommand();

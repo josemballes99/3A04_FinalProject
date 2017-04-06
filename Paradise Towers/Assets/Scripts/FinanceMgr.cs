@@ -30,19 +30,21 @@ namespace context {
 
 		static int[] revenueSource = new int[2]{0,0};
 		static int[] expenseSource = new int[2]{0,0};
-		static int revenuePerMinute = 0;
-		static int expensePerMinute = 0;
+		static int revenuePerPeriod = 0;
 
-		public static int incomePerMinute (){
-			return (revenuePerMinute - expensePerMinute);
+		static int expense = 0;
+		static int netRevenue = 0;
+
+		public static int netIncome(){
+			return netRevenue - expense;
 		}
 
 		public static int revenues(){
-			return revenuePerMinute; // * time elapsed
+			return netRevenue; // * time elapsed
 		}
 
 		public static int expenses(){
-			return expensePerMinute; // * time elapsed
+			return expense; // * time elapsed
 		}
 
 		void Awake (){
@@ -56,19 +58,19 @@ namespace context {
 		{
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
-			incText.text = (revenues() - expenses ()).ToString();
+			incText.text = netIncome().ToString();
 		}
 			
 
 		//Add data structure to track financial events so we can put them in the scrollview
 
 		public static void addRevenueSource(int source, int amt){
-			revenuePerMinute += amt;
+			revenuePerPeriod += amt;
 			revenueSource [source]++;
 		}
 
 		public static void addExpenseSource(int source, int amt){
-			expensePerMinute += amt;
+			expense += amt;
 			expenseSource [source]++;
 
 			//INSERT INTO COST (tid, source, amt) VALUES (tid, source, amt);
@@ -77,51 +79,58 @@ namespace context {
 		// Update is called once per frame
 		void Update ()
 		{			
-			if (timer.ElapsedMilliseconds < 1000) {
+			if (timer.ElapsedMilliseconds < 3000) {
 				return;
 			}
-			revenuePerMinute+=2;
-			expensePerMinute++;
+			netRevenue += revenuePerPeriod;
+
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
-			incText.text = (revenues() - expenses ()).ToString();
+			incText.text = (revenues() - expenses()).ToString();
 
 			timer.Reset ();
 			timer.Start ();
 		}
 
 		public static void addFloor(FloorType floor){
-			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Purchased $2 Floor, $3)";
+			string stmt = "INSERT INTO Cost (tid, source, amt) VALUES ($1, 'Purchased $2 Floor', $3)";
 
 			IDbConnection connection = Queries.connect (Queries.dbURL);
 
 			IDbCommand command = connection.CreateCommand();
 			command.CommandText = stmt;
 
+			int type = floor.getType ();
+			string name = FloorType.floorMap[type];
+
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.AnsiString, "2", floor.getType());
+			command = Queries.addParam (command, DbType.String, "2", name);//Make string
 			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
 			command.ExecuteNonQuery();
+			command.Dispose ();
+			connection.Close ();
+			revenuePerPeriod += floor.revenues();
 			tid++;
 		}
 
-		public static void addUpgrade(FloorType floor){
+		public static void addUpgrade(FloorType upgrade){
 			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Purchased $2 Floor Upgrade, $3)";
 
 			IDbConnection connection = Queries.connect (Queries.dbURL);
 			IDbCommand command = connection.CreateCommand();
 			command.CommandText = stmt;
 
-
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.AnsiString, "2", floor.getType());
-			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
-
+			command = Queries.addParam (command, DbType.AnsiString, "2", upgrade.getType());
+			command = Queries.addParam (command, DbType.Int32, "3", upgrade.getCost());				
 			command.ExecuteNonQuery();
+			command.Dispose ();
+			connection.Close ();
+			revenuePerPeriod += upgrade.revenues();
 			tid++;
 		}
 
-		public static void addClient(FloorType floor){
+		public static void addClient(FloorType client){
 			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Added worker to $2 Floor, $3)";
 
 			IDbConnection connection = Queries.connect (Queries.dbURL);
@@ -129,10 +138,11 @@ namespace context {
 			command.CommandText = stmt;
 
 			command = Queries.addParam (command, DbType.Int32, "1", tid);
-			command = Queries.addParam (command, DbType.AnsiString, "2", floor.getType());
-			command = Queries.addParam (command, DbType.Int32, "3", floor.getCost());				
-
+			command = Queries.addParam (command, DbType.AnsiString, "2", client.getType());
+			command = Queries.addParam (command, DbType.Int32, "3", client.getCost());
 			command.ExecuteNonQuery();
+			command.Dispose ();
+			connection.Close ();
 			tid++;
 		}			
 

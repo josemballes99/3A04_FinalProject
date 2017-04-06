@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace context
@@ -10,6 +11,8 @@ namespace context
         public static readonly FloorType Suite = new FloorType(2, 40, 100);
         public static readonly FloorType Lobby = new FloorType(3, 0, 0);
 
+		public static Dictionary<int, string> floorMap;
+
         public Guid InstanceID { get; private set; }
 
         private static int[] floors;
@@ -18,6 +21,14 @@ namespace context
         private readonly int cost;
         private int id;
         private bool isVisible;         // whether or not to show the floor on screen
+
+		static FloorType () {
+			floorMap = new Dictionary<int, string>();
+			floorMap.Add(0, "Arcade");
+			floorMap.Add(1, "Restaurant");
+			floorMap.Add(2, "Suite");
+			floorMap.Add(3, "Lobby");
+		}
 
         public FloorType(int type, int revenue, int cost)
         {
@@ -72,6 +83,11 @@ namespace context
             hash = (hash * 31) % (this.id + 3);
             return hash;
         }
+
+		public override string ToString ()
+		{
+			return string.Format ("[FloorType: InstanceID={0}]", InstanceID);
+		}
 
     }
 }
