@@ -22,7 +22,8 @@ namespace context {
 		public static List<Text> boxes = new List<Text>();
 
 
-		private static Stopwatch timer = new Stopwatch();
+		public static Stopwatch timer = new Stopwatch();
+		public static long lastTime = 0;
 
 		public static int tid = 0;
 		public static int Floor = 0;
@@ -49,13 +50,12 @@ namespace context {
 
 		void Awake (){
 			Queries.createLog();
-			timer.Reset ();
-			timer.Start ();
 		}
 
 		// Use this for initialization
 		void Start ()
 		{
+			timer.Start();
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
 			incText.text = netIncome().ToString();
@@ -79,17 +79,16 @@ namespace context {
 		// Update is called once per frame
 		void Update ()
 		{			
-			if (timer.ElapsedMilliseconds < 3000) {
+			if (timer.ElapsedMilliseconds - lastTime < 3000) {
 				return;
 			}
-			netRevenue += revenuePerPeriod;
+			long periods = (timer.ElapsedMilliseconds - lastTime) / 3000;
+			lastTime = timer.ElapsedMilliseconds;
+			netRevenue += revenuePerPeriod * Convert.ToInt32(periods);
 
 			revText.text = revenues().ToString();
 			expText.text = expenses().ToString();
 			incText.text = (revenues() - expenses()).ToString();
-
-			timer.Reset ();
-			timer.Start ();
 		}
 
 		public static void addFloor(FloorType floor){

@@ -15,6 +15,7 @@ public class HotelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
+		FinanceMgr.timer.Start ();
     }
 	
 	// Update is called once per frame
