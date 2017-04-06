@@ -42,10 +42,46 @@ namespace context
          */
         public void addFloor(FloorType floor)
         {
-            floors.Add(floor);
-			Queries.addFloor (fid, floor.getType(), FinanceMgr.tid, floor.getCost());
-			FinanceMgr.addFloor (floor);
-			fid++;
+            int arcadeNum = 0;
+            int restaurantNum = 0;
+            int suiteNum = 0;
+            foreach(FloorType f in floors)
+            {
+                if (f.getType() == 0)
+                {
+                    arcadeNum++;
+                } else if (f.getType() == 1)
+                {
+                    restaurantNum++;
+                } else if (f.getType() == 2)
+                {
+                    suiteNum++;
+                }
+            }
+
+            if (floor.getType() == 0 && arcadeNum == 0)
+            {
+                floors.Add(floor);
+                Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
+                FinanceMgr.addFloor(floor);
+                fid++;
+            } else if (floor.getType() == 1 && restaurantNum == 0)
+            {
+                floors.Add(floor);
+                Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
+                FinanceMgr.addFloor(floor);
+                fid++;
+            }
+            else if (floor.getType() == 2 && suiteNum < 2)
+            {
+                floors.Add(floor);
+                Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
+                FinanceMgr.addFloor(floor);
+                fid++;
+            } else
+            {
+                // display error (?)
+            }
         }
 
         /**
