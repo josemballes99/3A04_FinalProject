@@ -114,7 +114,8 @@ namespace context {
 		}
 
 		public static void addUpgrade(FloorType upgrade){
-			string stmt = "INSERT INTO Cost (tid, srcType, amt) VALUES ($1, Purchased $2 Floor Upgrade, $3)";
+			string stmt = "INSERT INTO Cost (tid, sourcee, amt) VALUES ($1, Purchased $2 Floor Upgrade, $3)";
+			string stmt2 = "UPDATE Floors SET level=level+1 WHERE pos=$4";
 
 			IDbConnection connection = Queries.connect (Queries.dbURL);
 			IDbCommand command = connection.CreateCommand();
