@@ -66,6 +66,8 @@ public class SelectFloorButtons : MonoBehaviour {
                 suiteNum++;
                 tempButton.GetComponentInChildren<Text>().text = "Suite " + suiteNum;
             }
+            int index = tempButton.transform.GetSiblingIndex();
+            tempButton.transform.SetSiblingIndex(index - 1);
             tempButton.onClick.AddListener(() => SelectOnClick(floor));
         }
     }
