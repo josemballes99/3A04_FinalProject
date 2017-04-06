@@ -97,7 +97,6 @@
     <Compile Include="Assets\Scripts\Supporting Scripts\DragMe.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\DragPanel.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\DropMe.cs" />
-    <Compile Include="Assets\Scripts\Supporting Scripts\FinanceToggleButton.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\PanelManager.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\RemoveFloorButtons.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ResizePanel.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="Assets\Scripts\Supporting Scripts\SelectFloorButtons.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\TiltWindow.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\ToggleButton.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ImportBehaviour.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\Layer.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ObjectLayer.cs" />
