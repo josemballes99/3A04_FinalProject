@@ -8,9 +8,11 @@ namespace context
         public static readonly FloorType Arcade = new FloorType(0, 25, 100);
         public static readonly FloorType Restaurant = new FloorType(1, 30, 100);
         public static readonly FloorType Suite = new FloorType(2, 40, 100);
+        public static readonly FloorType Lobby = new FloorType(3, 0, 0);
+
+        public Guid InstanceID { get; private set; }
 
         private static int[] floors;
-
         private int revenue;
         private readonly int type;
         private readonly int cost;
@@ -19,12 +21,16 @@ namespace context
 
         public FloorType(int type, int revenue, int cost)
         {
+            this.InstanceID = Guid.NewGuid();
             this.type = type;
             this.revenue = revenue;
             this.cost = cost;
             floors = new int[3] { 0, 0, 0 };
-            FloorType.floors[type]++;
-            this.id = FloorType.floors[type];
+            if (type != 3)
+            {
+                FloorType.floors[type]++;
+                this.id = FloorType.floors[type];
+            }
         }
 
         public void setVisibility(bool v)

@@ -24,6 +24,11 @@ namespace context
             }
         }
 
+        void Start()
+        {
+            floors.Add(FloorType.Lobby);
+        }
+
         /**
          * Returns list of all floors in the hotel.
          */
@@ -54,7 +59,7 @@ namespace context
             // deactivate all other floors
             foreach (FloorType floor in floors)
             {
-                if (floor != selectedFloor)
+                if (selectedFloor != floor)
                 {
                     floor.setVisibility(false);
                 }
@@ -68,7 +73,7 @@ namespace context
         {
             floors.Remove(floor);
             int position = 0;
-            Queries.removeFloor(position);
+            //Queries.removeFloor(position);
         }
 
     }

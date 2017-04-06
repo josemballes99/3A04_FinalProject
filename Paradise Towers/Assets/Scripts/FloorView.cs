@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class FloorView : MonoBehaviour
 {
-    public GameObject arcadeFloor, restaurantFloor, suiteFloor;     // prefabs for floors
+    public GameObject arcadeFloor, restaurantFloor, suiteFloor, lobbyFloor;     // prefabs for floors
     public Transform positionObject;
 
     public GameObject window;
@@ -36,12 +36,15 @@ public class FloorView : MonoBehaviour
     public void drawFloors()
     {
         List<FloorType> floors = floorManager.getFloors();
+        int num = 0;
         foreach (FloorType floor in floors)
         {
             if (floor.Equals(FloorType.Arcade))
             {
                 GameObject newFloor = Instantiate(arcadeFloor, positionObject.position, positionObject.rotation);   // instantiates new floor
                 setupFloor(newFloor);
+                newFloor.name = "arcade " + num;
+                num++;
                 if (floor.getVisibility())
                 {
                     newFloor.SetActive(true);
@@ -51,6 +54,8 @@ public class FloorView : MonoBehaviour
             {
                 GameObject newFloor = Instantiate(restaurantFloor, positionObject.position, positionObject.rotation);
                 setupFloor(newFloor);
+                newFloor.name = "restaurant " + num;
+                num++;
                 if (floor.getVisibility())
                 {
                     newFloor.SetActive(true);
@@ -61,6 +66,18 @@ public class FloorView : MonoBehaviour
             {
                 GameObject newFloor = Instantiate(suiteFloor, positionObject.position, positionObject.rotation);
                 setupFloor(newFloor);
+                newFloor.name = "suite " + num;
+                num++;
+                if (floor.getVisibility())
+                {
+                    newFloor.SetActive(true);
+                }
+            }
+            else if (floor.Equals(FloorType.Lobby))
+            {
+                GameObject newFloor = Instantiate(lobbyFloor, positionObject.position, positionObject.rotation);
+                setupFloor(newFloor);
+                newFloor.name = "lobby";
                 if (floor.getVisibility())
                 {
                     newFloor.SetActive(true);

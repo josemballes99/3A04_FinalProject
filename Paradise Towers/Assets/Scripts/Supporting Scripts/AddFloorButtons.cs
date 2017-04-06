@@ -28,16 +28,16 @@ public class AddFloorButtons : MonoBehaviour {
 
     private void SuiteOnClick()
     {
-        floorManager.addFloor(FloorType.Suite);
+        floorManager.addFloor(new FloorType(2, 40, 100));
     }
 
     private void RestaurantOnClick()
     {
-        floorManager.addFloor(FloorType.Restaurant);
+        floorManager.addFloor(new FloorType(1, 30, 100));
     }
 
     private void ArcadeOnClick()
     {
-        floorManager.addFloor(FloorType.Arcade);
+        floorManager.addFloor(new FloorType(0, 25, 100));
     }
 }

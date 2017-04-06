@@ -87,7 +87,6 @@
     <Compile Include="Assets\Scripts\FloorView.cs" />
     <Compile Include="Assets\Scripts\HotelManager.cs" />
     <Compile Include="Assets\Scripts\ObjMgr.cs" />
-    <Compile Include="Assets\Scripts\Objective.cs" />
     <Compile Include="Assets\Scripts\Queries.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ActiveStateToggler.cs" />
