@@ -8,23 +8,21 @@ using System.Data;
 public class Queries
 {
 
+	private static string localDBUrl = "URI=file:Objectives.db";
+	public static string dbURL = "URI=file:" + Application.persistentDataPath + "/Hotel.db"; //Path to database.
 
 
+	//First load
+	public static List<Objective> loadObjectives () {		
 
-	public static List<Objective> loadDB () {
-		string dbURL = "URI=file:Objectives.db"; //Path to database.
-
-		IDbConnection connection;
-		connection = (IDbConnection) new SqliteConnection(dbURL);
-		connection.Open(); //Open connection to the database.
-
+		IDbConnection connection = connect(localDBUrl);
 		IDbCommand cmd = connection.CreateCommand();
+
 		string sqlQuery = "SELECT * FROM Objectives";
 		//string sqlQuery = "SELECT name FROM sqlite_master WHERE type='table'";
 		cmd.CommandText = sqlQuery;
 
 		IDataReader reader = cmd.ExecuteReader();
-
 		List<Objective> objects = new List<Objective> ();
 
 		while (reader.Read())
@@ -53,85 +51,96 @@ public class Queries
 
 	public static void addFloor (int num, int type, int tid, int cost){
 
-		string dbURL = "URI=file:" + Application.persistentDataPath + "/Objectives.db"; //Path to database.
-
-		IDbConnection connection;
-		connection = (IDbConnection) new SqliteConnection(dbURL);
-		connection.Open(); //Open connection to the database.
-
-		string q1 = "INSERT INTO Floors (pos, type, level) VALUES ($1, $2, 0)";
-		string q2 = "INSERT INTO Occupants (pos, num) VALUES($3, 0)";
-		string q3 = "INSERT INTO Cost(tid, source, amt) VALUES ($4, 0, $5)";
+		IDbConnection connection = connect (dbURL);
 
 		IDbCommand command = connection.CreateCommand();
-		command.CommandText = q1;
+		command.CommandText = "INSERT INTO Floors (pos, type, level) VALUES ($1, $2, 0)";
+		command = addParam (command, DbType.Int32, "1", num);
+		command = addParam (command, DbType.Int32, "2", type);
+		command.ExecuteNonQuery();
+		command.Dispose();
+		command = null;
+
 
 		IDbCommand command2 = connection.CreateCommand();
-		command2.CommandText = q2;
-
-		IDbCommand command3 = connection.CreateCommand();
-		command2.CommandText = q3;
-
-		IDbDataParameter param = command.CreateParameter();
-		param.DbType = DbType.Int32;
-		param.ParameterName = "1";
-		param.Value = num;
-		command.Parameters.Add(param);
-
-		IDbDataParameter param2 = command.CreateParameter();
-		param2.DbType = DbType.Int32;
-		param2.ParameterName = "2";
-		param2.Value = type;
-		command.Parameters.Add(param2);
-		command.ExecuteNonQuery();
-
-
-		IDbDataParameter param3 = command2.CreateParameter();
-		param3.DbType = DbType.Int32;
-		param3.ParameterName = "3";
-		param3.Value = num;
-		command2.Parameters.Add(param3);
+		command2.CommandText = "INSERT INTO Occupants (pos, num) VALUES($3, 0)";
+		command2 = addParam(command2, DbType.Int32, "3", num);
 		command2.ExecuteNonQuery();
+		command2.Dispose();
+		command2 = null;
 
 
-		IDbDataParameter param4 = command3.CreateParameter();
-		param4.DbType = DbType.Int32;
-		param4.ParameterName = "4";
-		param4.Value = num;
-		command3.Parameters.Add(param4);
-
-		IDbDataParameter param5 = command3.CreateParameter();
-		param5.DbType = DbType.Int32;
-		param5.ParameterName = "5";
-		param5.Value = num;
-		command3.Parameters.Add(param5);
-		command3.ExecuteNonQuery();
+		connection.Close();
+		connection = null;
 	}
 
 
 	public static void removeFloor (int pos){
 
-		string dbURL = "URI=file:" + Application.persistentDataPath + "/Objectives.db"; //Path to database.
-
-		IDbConnection connection;
-		connection = (IDbConnection) new SqliteConnection(dbURL);
-		connection.Open(); //Open connection to the database.
-
-		string sqlQuery = "DELETE FROM Floors WHERE pos=$1";
-
+		IDbConnection connection = connect(dbURL);
 		IDbCommand command = connection.CreateCommand();
 
-		command.CommandText = sqlQuery;
-
-		IDbDataParameter param = command.CreateParameter();
-		param.DbType = DbType.Int32;
-		param.ParameterName = "1";
-		param.Value = pos;
-
-
-		command.Parameters.Add(param);
+		command.CommandText = "DELETE FROM Floors WHERE pos=$1";
+		command = addParam (command, DbType.Int32, "1", pos);
 		command.ExecuteNonQuery();
+
+		command.Dispose();
+		command = null;
+
+		connection.Close();
+		connection = null;
 	}
 
-}
 
+	public static int execute(string stmt){
+		IDbConnection connection = connect(dbURL);
+		IDbCommand command = connection.CreateCommand();
+		command.CommandText = stmt;
+		IDataReader reader = command.ExecuteReader();
+
+		while (reader.Read ()) {
+			if (!reader.IsDBNull(0)) {
+				int id = reader.GetInt32 (0);
+				return id;
+			}
+		}
+		return 0;
+	}
+
+	public static IDbConnection connect(string url){
+		IDbConnection connection;
+		connection = (IDbConnection) new SqliteConnection(url);
+		connection.Open(); //Open connection to the database.
+		return connection;
+	}
+
+	public static IDbCommand addParam(IDbCommand cmd, DbType type, string name, object val){
+		IDbDataParameter param = cmd.CreateParameter();
+		param.DbType = type;
+		param.ParameterName = name;
+		param.Value = val;
+		cmd.Parameters.Add(param);
+		return cmd;
+	}
+
+
+	public static void createLog(){
+		IDbConnection connection = Queries.connect (Queries.dbURL);
+
+		IDbCommand command = connection.CreateCommand();
+		command.CommandText = "CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source INTEGER, amt INTEGER)";
+		command.ExecuteNonQuery();
+
+		IDbCommand command2 = connection.CreateCommand();
+		command2.CommandText = "CREATE TABLE IF NOT EXISTS Floors(pos INTEGER, type INTEGER, level INTEGER)";
+		command2.ExecuteNonQuery();
+
+		IDbCommand command3 = connection.CreateCommand();
+		command3.CommandText = "CREATE TABLE IF NOT EXISTS Occupants(pos INTEGER, num INTEGER)";
+		command3.ExecuteNonQuery();
+
+		IDbCommand command4 = connection.CreateCommand();
+		command4.CommandText = "CREATE TABLE IF NOT EXISTS Upgrade(ftype INTEGER, amt INTEGER)";
+		command4.ExecuteNonQuery();
+	}
+}

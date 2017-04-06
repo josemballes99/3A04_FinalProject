@@ -38,14 +38,10 @@ namespace context
         public void addFloor(FloorType floor)
         {
             floors.Add(floor);
-            FinanceMgr.addRevenueSource(FinanceMgr.Floor, floor.revenues());
-            //Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
-            fid++;
-
-            //INSERT INTO FLOORS (pos, type, level) VALUES (floors.size() -1, floorType.type(), 0)
-            //INSERT INTO Occupants (pos, num) VALUES(pos, 0)
-            //tid += 1; //source = {floor : 0, upgrade : 1}
-            //INSERT INTO Cost(tid, source, amt) VALUES (tid, 0, floorType.cost())
+			//FinanceMgr.addRevenueSource(FinanceMgr.Floor, floor.revenues());
+			//Queries.addFloor (fid, floor.getType(), FinanceMgr.tid, floor.getCost());
+			//FinanceMgr.addFloor (floor);
+			fid++;
         }
 
         /**

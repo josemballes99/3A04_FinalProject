@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class HotelManager : MonoBehaviour {
 
+
+	void Awake(){
+		Queries.createLog ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		
