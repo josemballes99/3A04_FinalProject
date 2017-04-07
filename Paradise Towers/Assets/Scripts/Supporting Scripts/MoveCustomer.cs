@@ -31,8 +31,6 @@ public class MoveCustomer : MonoBehaviour
                 backButton.onClick.AddListener(() => backClick(customer));
             }
         }
-
-        createFloorButtons();
     }
 
     // Update is called once per frame

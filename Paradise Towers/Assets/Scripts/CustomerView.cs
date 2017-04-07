@@ -33,13 +33,11 @@ public class CustomerView : MonoBehaviour {
 
 	//Pauses Game
 	public void Stop(){
-        Debug.Log("game paused");
 		Time.timeScale = 0.0000001f;
 	}
 
 	//Resumes Game
 	public void Resume(){
-        Debug.Log("game resumed");
 		Time.timeScale = 1f;
 	}
 
