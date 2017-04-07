@@ -67,13 +67,14 @@ public class RemoveFloorButtons : MonoBehaviour {
             }
             int index = tempButton.transform.GetSiblingIndex();
             tempButton.transform.SetSiblingIndex(index - 1);
-            tempButton.onClick.AddListener(() => RemoveOnClick(floor));
+            tempButton.onClick.AddListener(() => RemoveOnClick(floor, tempButton.GetComponentInChildren<Text>().text));
         }
     }
 
-    void RemoveOnClick(FloorType floor)
+    void RemoveOnClick(FloorType floor, string floorName)
     {
         floorManager.removeFloor(floor);
+        floorManager.removeCustomers(floorName);
         gameObject.SetActive(false);
         floorManagementPanel.SetActive(true);
 

@@ -104,7 +104,7 @@ public class MoveCustomer : MonoBehaviour
             {
                 Transform floorObject = floorsObject.transform.Find(name);
                 customer.parent = floorObject;
-                floorManager.customers.Add(floorObject.name, customer.name);
+                floorManager.customers.Add(new Tuple<string, string>(floorObject.name, customer.name));
             }
         }
     }
@@ -112,10 +112,16 @@ public class MoveCustomer : MonoBehaviour
     void backClick(GameObject customer)
     {
         gameObject.SetActive(false);
-        if (people.transform.Find(customer.name) != null)
+        if (customer != null)
         {
-            CustomerView customerView = people.transform.Find(customer.name).GetComponent<CustomerView>();
+            CustomerView customerView = customer.GetComponent<CustomerView>();
             customerView.isSelected = false;
+            customerView.Resume();
+        }
+        else
+        {
+            CustomerView customerView = people.transform.GetChild(0).GetComponent<CustomerView>();
+            customerView.Resume();
         }
         customerManager.canClickCustomers = true;
     }

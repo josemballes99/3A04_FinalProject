@@ -1,6 +1,7 @@
 ﻿using context;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -96,16 +97,16 @@ public class FloorView : MonoBehaviour
     {
         foreach (Transform child in people.transform)
         {
-            if (floorManager.customers.ContainsValue(child.name))
+            if (floorManager.customers.Where(t => t.Item2.Contains(child.name)).Any())
             {
                 child.gameObject.SetActive(true);
             }
         }
 
-        foreach (KeyValuePair<string, string> customer in floorManager.customers)
+        foreach (Tuple<string, string> customer in floorManager.customers)
         {
-            Transform floor = gameObject.transform.Find(customer.Key);
-            Transform customerObj = people.transform.Find(customer.Value);
+            Transform floor = gameObject.transform.Find(customer.Item1);
+            Transform customerObj = people.transform.Find(customer.Item2);
             customerObj.parent = floor;
         }
     }

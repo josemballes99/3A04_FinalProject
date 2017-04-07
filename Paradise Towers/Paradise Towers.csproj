@@ -117,6 +117,7 @@
     <Compile Include="Assets\Scripts\Supporting Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\TiltWindow.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ToggleButton.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\Tuple.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ImportBehaviour.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\Layer.cs" />
     <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\ObjectLayer.cs" />
