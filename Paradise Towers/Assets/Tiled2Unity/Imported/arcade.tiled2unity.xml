@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2017-03-30 4:13:08 PM-->
+<!--Last exported: 2017-04-06 9:54:15 PM-->
 <Tiled2Unity version="1.0.9.5">
   <AssignMaterial mesh="mesh_0001" material="greywall" />
   <AssignMaterial mesh="mesh_0002" material="casinotileset" />
@@ -37,7 +37,7 @@
     </GameObject>
     <GameObject name="collisions" x="0" y="0" z="0">
       <TileLayer offsetX="0" offsetY="0" />
-      <GameObject name="collision" copy="mesh_0010" sortingLayerName="" sortingOrder="4" opacity="1" />
+      <GameObject name="collision" copy="mesh_0010" sortingLayerName="" sortingOrder="4" opacity="0" />
       <GameObject name="Collision">
         <PolygonCollider2D>
           <Path>8,-4 9,-4 9,-5 14,-5 14,-4 15,-4 15,-5 16,-5 16,-4 18,-4 18,-3 8,-3</Path>

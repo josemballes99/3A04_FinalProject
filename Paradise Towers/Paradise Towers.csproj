@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\FloorType.cs" />
     <Compile Include="Assets\Scripts\FloorView.cs" />
     <Compile Include="Assets\Scripts\HotelManager.cs" />
+    <Compile Include="Assets\Scripts\LobbySpawn.cs" />
     <Compile Include="Assets\Scripts\ObjMgr.cs" />
     <Compile Include="Assets\Scripts\Queries.cs" />
     <Compile Include="Assets\Scripts\SQLite.cs" />
