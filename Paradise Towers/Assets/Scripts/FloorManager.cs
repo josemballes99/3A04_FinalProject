@@ -65,12 +65,14 @@ namespace context
                 Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
                 FinanceMgr.addFloor(floor);
                 fid++;
+                MobileNativeMessage msg = new MobileNativeMessage("Floor Added", "Arcade floor added.");
             } else if (floor.getType() == 1 && restaurantNum == 0)
             {
                 floors.Add(floor);
                 Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
                 FinanceMgr.addFloor(floor);
                 fid++;
+                MobileNativeMessage msg = new MobileNativeMessage("Floor Added", "Restaurant floor added.");
             }
             else if (floor.getType() == 2 && suiteNum < 2)
             {
@@ -78,9 +80,10 @@ namespace context
                 Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
                 FinanceMgr.addFloor(floor);
                 fid++;
+                MobileNativeMessage msg = new MobileNativeMessage("Floor Added", "Suite floor added.");
             } else
             {
-                // display error (?)
+                MobileNativeMessage msg = new MobileNativeMessage("Excessive Number of Floors", "The floor was not added as the number of floors is already at maximum capacity.");
             }
         }
 

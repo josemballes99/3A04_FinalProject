@@ -121,11 +121,22 @@
     <Reference Include="System.Data">
       <HintPath>Assets\Plugins\System.Data.dll</HintPath>
     </Reference>
+    <Reference Include="WP8PopUps">
+      <HintPath>Assets\Plugins\WP8PopUps.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Paradise Towers.Plugins.csproj">
+      <Project>{4B10B807-3C8A-E130-BF5B-C3ACBFB352E9}</Project>
+      <Name>Paradise Towers.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="Paradise Towers.csproj">
       <Project>{79074DD3-D0CF-04F4-DE62-8E674EAB91BC}</Project>
       <Name>Paradise Towers</Name>
+    </ProjectReference>
+    <ProjectReference Include="Paradise Towers.Editor.Plugins.csproj">
+      <Project>{7AA085D4-A972-5AF3-CF7B-BD2C1939BF43}</Project>
+      <Name>Paradise Towers.Editor.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +157,12 @@
     <None Include="Assets\MainMenu\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\MainMenu\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\MainMenu\Textures and Sprites\SF UI\Background\LICENSE.txt" />
+    <None Include="Assets\Plugins\StansAssets\Modules\MobileNativePopUps\Documentation\ReadMe.txt" />
+    <None Include="Assets\Plugins\StansAssets\Support\NativeLibraries\Android\mobile-native-popups.jar.txt" />
+    <None Include="Assets\Plugins\StansAssets\Support\NativeLibraries\Android\mobile-native-popups.txt" />
+    <None Include="Assets\Plugins\StansAssets\Support\NativeLibraries\IOS\ISN_NativeCore.h.txt" />
+    <None Include="Assets\Plugins\StansAssets\Support\NativeLibraries\IOS\ISN_NativeCore.mm.txt" />
+    <None Include="Assets\Plugins\StansAssets\Support\Versions\MNP_VersionInfo.txt" />
     <None Include="Assets\Tiled2Unity\Imported\_ReadMe.txt" />
     <None Include="Assets\Tiled2Unity\Imported\arcade.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\lobby.tiled2unity.xml" />

@@ -75,7 +75,7 @@ public class SelectFloorButtons : MonoBehaviour {
     void SelectOnClick(FloorType floor)
     {
         floorManager.selectFloor(floor);
-        hotelManager.LoadByIndex(0);
+        hotelManager.LoadByIndex(2);
     }
 
 }
