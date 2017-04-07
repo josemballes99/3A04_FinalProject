@@ -26,21 +26,22 @@ public class HotelManager : MonoBehaviour {
 			command = null;
 			connection.Close();
 			FinanceMgr.timer.Start ();
+			ObjMgr.timer.Start ();
 		}
 
-		IDbConnection connection2 = Queries.connect (Queries.dbURL);
-		IDbCommand command2 = connection2.CreateCommand();
-		command2.CommandText = "SELECT * FROM Occupants";
-		IDataReader reader = command2.ExecuteReader();
-		while (reader.Read ()) {
-			if (!reader.IsDBNull(0)) {
-				int pos = reader.GetInt32 (0);
-				int num = reader.GetInt32 (1);
-			}
-		}
-		command2.Dispose();
-		command2 = null;
-		connection2.Close();
+//		IDbConnection connection2 = Queries.connect (Queries.dbURL);
+//		IDbCommand command2 = connection2.CreateCommand();
+//		command2.CommandText = "SELECT * FROM Occupants";
+//		IDataReader reader = command2.ExecuteReader();
+//		while (reader.Read ()) {
+//			if (!reader.IsDBNull(0)) {
+//				int pos = reader.GetInt32 (0);
+//				int num = reader.GetInt32 (1);
+//			}
+//		}
+//		command2.Dispose();
+//		command2 = null;
+//		connection2.Close();
 	}
 
     // Use this for initialization

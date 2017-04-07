@@ -87,6 +87,7 @@ public class Queries
 				expense = id;
 			}
 		}
+		command.Dispose ();
 		connection.Close ();
 		return expense;
 	}
@@ -104,6 +105,7 @@ public class Queries
 				income = id;
 			}
 		}
+		command.Dispose ();
 		connection.Close ();
 		return income;
 	}
@@ -121,6 +123,7 @@ public class Queries
 				revenue = id;
 			}
 		}
+		command.Dispose ();
 		connection.Close ();
 		return revenue;
 	}
@@ -169,19 +172,20 @@ public class Queries
 	}
 
 
-	public static int execute(string stmt){
+	public static int execute(string stmt){		
 		IDbConnection connection = connect(dbURL);
 		IDbCommand command = connection.CreateCommand();
 		command.CommandText = stmt;
 		IDataReader reader = command.ExecuteReader();
-
+		int result = 0;
 		while (reader.Read ()) {
 			if (!reader.IsDBNull(0)) {
-				int id = reader.GetInt32 (0);
-				return id;
+				result = reader.GetInt32 (0);
 			}
 		}
-		return 0;
+		command.Dispose ();
+		connection.Close ();
+		return result;
 	}
 
 	public static IDbConnection connect(string url){

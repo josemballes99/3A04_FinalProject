@@ -52,7 +52,6 @@ namespace context {
 			revenuePerPeriod = Queries.loadRevenue ();
 			expense = Queries.loadExpenses ();
 			protoItem.text = "";
-			UnityEngine.Debug.Log ("revenue = " + revenuePerPeriod);
 		}
 
 		// Use this for initialization
@@ -94,7 +93,7 @@ namespace context {
 			incText.text = (revenues() - expenses()).ToString();
 
 			var f_log = Queries.loadTransactions ();
-
+			listView.transform.DetachChildren ();
 			if (f_log != null) {				
 				bool first = true;
 				foreach (string trans in f_log) {
@@ -104,9 +103,9 @@ namespace context {
 						first = false;
 					} else {
 						box = Instantiate (protoItem);
-						box.transform.SetParent (listView.transform);
-						boxes.Add (box);
 					}
+					box.transform.SetParent (listView.transform);
+					boxes.Add (box);
 					box.text = trans;
 				}
 			}
