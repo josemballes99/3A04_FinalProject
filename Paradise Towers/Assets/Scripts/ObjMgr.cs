@@ -38,7 +38,6 @@ namespace context {
 			timer.Reset ();
 			timer.Start ();
 			ObjMgr.objects.Clear();
-			Queries.createLog ();
 
 			var objectives = Queries.loadObjectives ();
 

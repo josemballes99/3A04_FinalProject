@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+using Mono.Data.Sqlite;
+using System.Data;
+
 namespace context
 {
     /// <summary>
@@ -46,6 +49,27 @@ namespace context
             int arcadeNum = 0;
             int restaurantNum = 0;
             int suiteNum = 0;
+
+			IDbConnection connection2 = Queries.connect (Queries.dbURL);
+			IDbCommand command2 = connection2.CreateCommand();
+			command2.CommandText = "SELECT SUM(amt) FROM Income";
+			command2.ExecuteNonQuery();
+			IDataReader reader = command2.ExecuteReader();
+			int sum = 0;
+			while (reader.Read ()) {
+				if (!reader.IsDBNull(0)) {
+					sum = reader.GetInt32 (0);
+				}
+			}
+			command2.Dispose();
+			command2 = null;
+			connection2.Close();
+			if (sum < floor.getCost ()) {
+				new MobileNativeMessage("Insufficient funds", "Expand your hotel to make more money");
+				return;
+			}
+
+
             foreach(FloorType f in floors)
             {
                 if (f.getType() == 0)
@@ -66,14 +90,14 @@ namespace context
                 Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
                 FinanceMgr.addFloor(floor);
                 fid++;
-                MobileNativeMessage msg = new MobileNativeMessage("Floor Added", "Arcade floor added.");
+                new MobileNativeMessage("Floor Added", "Arcade floor added.");
             } else if (floor.getType() == 1 && restaurantNum == 0)
             {
                 floors.Add(floor);
                 Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
                 FinanceMgr.addFloor(floor);
                 fid++;
-                MobileNativeMessage msg = new MobileNativeMessage("Floor Added", "Restaurant floor added.");
+                new MobileNativeMessage("Floor Added", "Restaurant floor added.");
             }
             else if (floor.getType() == 2 && suiteNum < 2)
             {
@@ -81,10 +105,10 @@ namespace context
                 Queries.addFloor(fid, floor.getType(), FinanceMgr.tid, floor.getCost());
                 FinanceMgr.addFloor(floor);
                 fid++;
-                MobileNativeMessage msg = new MobileNativeMessage("Floor Added", "Suite floor added.");
+                new MobileNativeMessage("Floor Added", "Suite floor added.");
             } else
             {
-                MobileNativeMessage msg = new MobileNativeMessage("Excessive Number of Floors", "The floor was not added as the number of floors is already at maximum capacity.");
+                new MobileNativeMessage("Excessive Number of Floors", "The floor was not added as the number of floors is already at maximum capacity.");
             }
         }
 
@@ -111,8 +135,7 @@ namespace context
         public void removeFloor(FloorType floor)
         {
             floors.Remove(floor);
-            int position = 0;
-            //Queries.removeFloor(position);
+			Queries.removeFloor(floor.id);
         }
 
         public void removeCustomers(string floorName)

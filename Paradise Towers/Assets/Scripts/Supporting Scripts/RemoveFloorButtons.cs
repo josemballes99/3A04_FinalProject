@@ -80,15 +80,15 @@ public class RemoveFloorButtons : MonoBehaviour {
 
         if (floor.getType() == 0)
         {
-            MobileNativeMessage msg = new MobileNativeMessage("Floor Removed", "Arcade floor was successfully removed.");
+            new MobileNativeMessage("Floor Removed", "Arcade floor was successfully removed.");
         }
         else if (floor.getType() == 1)
         {
-            MobileNativeMessage msg = new MobileNativeMessage("Floor Removed", "Restaurant floor was successfully removed.");
+            new MobileNativeMessage("Floor Removed", "Restaurant floor was successfully removed.");
         }
         else if (floor.getType() == 2)
         {
-            MobileNativeMessage msg = new MobileNativeMessage("Floor Removed", "Suite floor was successfully removed.");
+            new MobileNativeMessage("Floor Removed", "Suite floor was successfully removed.");
         }
     }
 

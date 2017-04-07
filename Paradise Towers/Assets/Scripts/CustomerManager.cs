@@ -28,11 +28,6 @@ public class CustomerManager : MonoBehaviour {
             }
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void OnEnable()
     {
@@ -57,8 +52,7 @@ public class CustomerManager : MonoBehaviour {
         CustomerView customerView = customer.GetComponent<CustomerView>();
         customerView.Resume();
         moveCustomerCanvas.SetActive(true);
-        gameObject.SetActive(false);
-        
+		gameObject.SetActive(false);
     }
 
     void removeCustomerClick(GameObject customer)

@@ -27,12 +27,6 @@ public class FloorView : MonoBehaviour
         moveCustomers();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /**
      * Creates floor GameObjects on the screen. Gets list of floors from FloorManager.
      */

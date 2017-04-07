@@ -19,7 +19,6 @@ public class Queries
 		IDbCommand cmd = connection.CreateCommand();
 
 		string sqlQuery = "SELECT * FROM Objectives";
-		//string sqlQuery = "SELECT name FROM sqlite_master WHERE type='table'";
 		cmd.CommandText = sqlQuery;
 
 		IDataReader reader = cmd.ExecuteReader();
@@ -36,7 +35,6 @@ public class Queries
 
 			Objective obj = new Objective (id, caption, progress, reward, query, condition);
 			objects.Add (obj);
-			//Debug.Log( "table= "+name);//+"  name ="+name+"  random ="+  rand);
 		}
 		reader.Close();
 		reader = null;
@@ -54,7 +52,6 @@ public class Queries
 		IDbCommand cmd = connection.CreateCommand();
 
 		string sqlQuery = "SELECT * FROM Cost";
-		//string sqlQuery = "SELECT name FROM sqlite_master WHERE type='table'";
 		cmd.CommandText = sqlQuery;
 
 		IDataReader reader = cmd.ExecuteReader();
@@ -208,26 +205,44 @@ public class Queries
 		IDbConnection connection = Queries.connect (Queries.dbURL);
 
 		IDbCommand command = connection.CreateCommand();
+		command.CommandText = "DROP TABLE Cost";
+		command.ExecuteNonQuery();
+		command = connection.CreateCommand();
 		command.CommandText = "CREATE TABLE IF NOT EXISTS Cost(tid INTEGER, source TEXT, amt INTEGER, PRIMARY KEY(tid))";
 		command.ExecuteNonQuery();
 
 		IDbCommand command2 = connection.CreateCommand();
+		command2.CommandText = "DROP TABLE Floors";
+		command2.ExecuteNonQuery();
+		command2 = connection.CreateCommand();
 		command2.CommandText = "CREATE TABLE IF NOT EXISTS Floors(pos INTEGER, type INTEGER, level INTEGER)";
 		command2.ExecuteNonQuery();
 
 		IDbCommand command3 = connection.CreateCommand();
+		command3.CommandText = "DROP TABLE Occupants";
+		command3.ExecuteNonQuery();
+		command3 = connection.CreateCommand();
 		command3.CommandText = "CREATE TABLE IF NOT EXISTS Occupants(pos INTEGER, num INTEGER)";
 		command3.ExecuteNonQuery();
 
 		IDbCommand command4 = connection.CreateCommand();
+		command4.CommandText = "DROP TABLE Upgrade";
+		command4.ExecuteNonQuery();
+		command4 = connection.CreateCommand();
 		command4.CommandText = "CREATE TABLE IF NOT EXISTS Upgrade(ftype INTEGER, amt INTEGER)";
 		command4.ExecuteNonQuery();
 
 		IDbCommand command5 = connection.CreateCommand();
+		command5.CommandText = "DROP TABLE Income";
+		command5.ExecuteNonQuery();
+		command5 = connection.CreateCommand();
 		command5.CommandText = "CREATE TABLE IF NOT EXISTS Income(amt INTEGER)";
 		command5.ExecuteNonQuery();
 
 		IDbCommand command6 = connection.CreateCommand();
+		command6.CommandText = "DROP TABLE Revenue";
+		command6.ExecuteNonQuery();
+		command6 = connection.CreateCommand();
 		command6.CommandText = "CREATE TABLE IF NOT EXISTS Revenue(amt INTEGER)";
 		command6.ExecuteNonQuery();
 

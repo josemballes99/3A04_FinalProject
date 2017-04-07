@@ -48,11 +48,11 @@ namespace context {
 		}
 
 		void Awake (){
-			Queries.createLog();
 			netRevenue = Queries.loadIncome ();
 			revenuePerPeriod = Queries.loadRevenue ();
 			expense = Queries.loadExpenses ();
 			protoItem.text = "";
+			UnityEngine.Debug.Log ("revenue = " + revenuePerPeriod);
 		}
 
 		// Use this for initialization

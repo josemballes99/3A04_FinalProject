@@ -5,6 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Mono.Data.Sqlite;
+using System.Data;
+
 public class MoveCustomer : MonoBehaviour
 {
     public GameObject buttonPrefab;
@@ -31,12 +34,6 @@ public class MoveCustomer : MonoBehaviour
                 backButton.onClick.AddListener(() => backClick(customer));
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void OnEnable()
@@ -87,23 +84,49 @@ public class MoveCustomer : MonoBehaviour
                 suiteNum++;
                 tempButton.GetComponentInChildren<Text>().text = "Suite " + suiteNum;
             }
+
             int index = tempButton.transform.GetSiblingIndex();
             tempButton.transform.SetSiblingIndex(index - 1);
-            tempButton.onClick.AddListener(() => moveCustomer(tempButton.GetComponentInChildren<Text>().text));
+			tempButton.onClick.AddListener(() => moveCustomer(index, tempButton.GetComponentInChildren<Text>().text));
         }
     }
 
-    void moveCustomer(string name)
+    void moveCustomer(int index, string name)
     {
         foreach (Transform customer in people.transform)
         {
             CustomerView customerView = people.transform.Find(customer.name).GetComponent<CustomerView>();
-            if (customerView.isSelected)
-            {
-                Transform floorObject = floorsObject.transform.Find(name);
-                customer.parent = floorObject;
-                floorManager.customers.Add(new Tuple<string, string>(floorObject.name, customer.name));
-            }
+			if (customerView.isSelected)
+			{
+				Transform floorObject = floorsObject.transform.Find(name);
+				customer.parent = floorObject;
+				floorManager.customers.Add(new Tuple<string, string>(floorObject.name, customer.name));
+
+
+				//Move customers database
+				int UID = LobbySpawn.clients.IndexOf(customer.gameObject);
+				int fid = index;
+
+				int oldFloor = LobbySpawn.cList[UID];
+
+				IDbConnection connection = Queries.connect (Queries.dbURL);
+				IDbCommand command2 = connection.CreateCommand();
+				command2.CommandText = "UPDATE Occupants SET num=num-1 WHERE pos=$1";
+				command2 = Queries.addParam(command2, DbType.Int32, "1", oldFloor);
+				command2.ExecuteNonQuery();
+
+				command2 = connection.CreateCommand();
+				command2.CommandText = "UPDATE Occupants SET num=num+1 WHERE pos=$2";
+				command2 = Queries.addParam(command2, DbType.Int32, "2", fid);
+				command2.ExecuteNonQuery();
+
+
+				command2.Dispose();
+				command2 = null;
+				connection.Close ();
+
+				LobbySpawn.cList [UID] = fid;
+			}
         }
     }
 

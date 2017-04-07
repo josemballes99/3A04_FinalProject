@@ -3,35 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+using Mono.Data.Sqlite;
+using System.Data;
+
 public class LobbySpawn : MonoBehaviour {
 
 	GameObject People;
     public GameObject floorObjects;
 
-	private List<GameObject> Customers = new List<GameObject>();
+	public static Dictionary<int, int> cList = new Dictionary<int, int> ();
+	public static List<GameObject> clients = new List<GameObject>();
 
-	// Use this for initialization
 	void Start () {
 		init ();
 		Invoke ("spawnCustomer", 5);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
+	// Initialize customers, putting them in lobby
 	public void init () {
+		cList.Clear ();
+		clients.Clear ();
+		int i = 0;
 		foreach(Transform child in transform){
 			child.gameObject.SetActive (false);
-			Customers.Add (child.gameObject);
+			if (clients.Count < 16) {
+				cList.Add (i, 0);
+				clients.Add (child.gameObject);
+			}
+			i++;
 		}
 	}
 
 	public void spawnCustomer() {
         if (floorObjects.transform.Find("lobby").gameObject.activeSelf)
         {
-		    Customers.ElementAt(Random.Range(0,16)).SetActive(true);
+		    clients.ElementAt(Random.Range(0,16)).SetActive(true);
+			IDbConnection connection = Queries.connect (Queries.dbURL);
+			IDbCommand command = connection.CreateCommand();
+			command.CommandText = "UPDATE Occupants set num=num+1 WHERE pos=0 AND num < 16";
+			command.ExecuteNonQuery();
+			command.Dispose();
+			command = null;
+			connection.Close();
 		    Invoke ("spawnCustomer", 5);
         }
 	}

@@ -15,13 +15,14 @@ namespace context
 		public static Dictionary<int, int> upgrades;
 
         public Guid InstanceID { get; private set; }
+		public static int fid = 0;
 
         private static int[] floors;
 		private int level = 0;
         private int revenue;
         private readonly int type;
         private readonly int cost;
-        private int id;
+        public int id;
         private bool isVisible;         // whether or not to show the floor on screen
 
 		static FloorType () {
@@ -36,22 +37,21 @@ namespace context
 			upgrades.Add (2, 10000);
 			upgrades.Add (3, 30000);
 		}
-
-
-
-        public FloorType(int type, int revenue, int cost)
-        {
-            this.InstanceID = Guid.NewGuid();
-            this.type = type;
-            this.revenue = revenue;
-            this.cost = cost;
-            floors = new int[3] { 0, 0, 0 };
-            if (type != 3)
-            {
-                FloorType.floors[type]++;
-                this.id = FloorType.floors[type];
-            }
-        }
+			
+		public FloorType(int type, int revenue, int cost)
+		{
+			this.InstanceID = Guid.NewGuid();
+			this.type = type;
+			this.revenue = revenue;
+			this.cost = cost;
+			floors = new int[3] { 0, 0, 0 };
+			if (type != 3)
+			{
+				FloorType.floors[type]++;
+			}
+			this.id = fid;
+			fid++;
+		}
 
         public void setVisibility(bool v)
         {
