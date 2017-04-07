@@ -23,6 +23,7 @@ public class FloorView : MonoBehaviour
     {
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();    // find FloorManager script on FloorManager GameObject
         drawFloors();
+        moveCustomers();
     }
 
     // Update is called once per frame
@@ -93,7 +94,20 @@ public class FloorView : MonoBehaviour
 
     public void moveCustomers()
     {
-        
+        foreach (Transform child in people.transform)
+        {
+            if (floorManager.customers.ContainsValue(child.name))
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+
+        foreach (KeyValuePair<string, string> customer in floorManager.customers)
+        {
+            Transform floor = gameObject.transform.Find(customer.Key);
+            Transform customerObj = people.transform.Find(customer.Value);
+            customerObj.parent = floor;
+        }
     }
 
     private void setupFloor(GameObject floor)

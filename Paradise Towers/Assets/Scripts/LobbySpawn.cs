@@ -6,6 +6,8 @@ using System.Linq;
 public class LobbySpawn : MonoBehaviour {
 
 	GameObject People;
+    public GameObject floorObjects;
+
 	private List<GameObject> Customers = new List<GameObject>();
 
 	// Use this for initialization
@@ -25,8 +27,12 @@ public class LobbySpawn : MonoBehaviour {
 			Customers.Add (child.gameObject);
 		}
 	}
-	public void spawnCustomer () {
-		Customers.ElementAt(Random.Range(0,16)).SetActive(true);
-		Invoke ("spawnCustomer", 5);
+
+	public void spawnCustomer() {
+        if (floorObjects.transform.Find("lobby").gameObject.activeSelf)
+        {
+		    Customers.ElementAt(Random.Range(0,16)).SetActive(true);
+		    Invoke ("spawnCustomer", 5);
+        }
 	}
 }

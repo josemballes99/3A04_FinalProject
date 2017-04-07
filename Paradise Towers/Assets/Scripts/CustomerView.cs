@@ -7,6 +7,7 @@ public class CustomerView : MonoBehaviour {
     public CustomerManager customerManager;
     public GameObject customerManagerCanvas;
     public GameObject moveCustomerCanvas;
+    public GameObject floorObjects;
 
 	//For Animation
 	Animator anim;
@@ -56,18 +57,27 @@ public class CustomerView : MonoBehaviour {
             return;
         }
 
-		// Checks User Input
-		if(platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer){
-			if(Input.touchCount > 0) {
-				if(Input.GetTouch(0).phase == TouchPhase.Began){
-					checkTouch(Input.GetTouch(0).position);
-				}
-			}
-		}else if(platform == RuntimePlatform.OSXEditor || platform == RuntimePlatform.WindowsEditor){
-			if(Input.GetMouseButtonDown(0)) {
-				checkTouch(Input.mousePosition);
-			}
-		}
+        if (floorObjects.transform.Find("lobby").gameObject.activeSelf)
+        {
+            // Checks User Input
+            if (platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer)
+            {
+                if (Input.touchCount > 0)
+                {
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
+                    {
+                        checkTouch(Input.GetTouch(0).position);
+                    }
+                }
+            }
+            else if (platform == RuntimePlatform.OSXEditor || platform == RuntimePlatform.WindowsEditor)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    checkTouch(Input.mousePosition);
+                }
+            }
+        }
 
 		//For Character movement and Animation
 		if (isMoving){

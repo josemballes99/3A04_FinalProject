@@ -13,7 +13,7 @@ namespace context
     {
         public static int fid = 1;
         private List<FloorType> floors = new List<FloorType>();     // list of all floors in hotel
-        public List<string> customers = new List<string>();
+        public Dictionary<string, string> customers = new Dictionary<string, string>();
 
         void Awake()
         {
@@ -110,6 +110,11 @@ namespace context
          */
         public void removeFloor(FloorType floor)
         {
+            foreach (KeyValuePair<string, string> customer in customers)
+            {
+                
+            }
+
             floors.Remove(floor);
             int position = 0;
             //Queries.removeFloor(position);
