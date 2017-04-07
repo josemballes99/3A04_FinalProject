@@ -90,6 +90,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CustomerManager.cs" />
     <Compile Include="Assets\Scripts\CustomerView.cs" />
     <Compile Include="Assets\Scripts\FinanceMgr.cs" />
     <Compile Include="Assets\Scripts\FloorManager.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Assets\Scripts\Supporting Scripts\DragMe.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\DragPanel.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\DropMe.cs" />
+    <Compile Include="Assets\Scripts\Supporting Scripts\MoveCustomer.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\PanelManager.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\RemoveFloorButtons.cs" />
     <Compile Include="Assets\Scripts\Supporting Scripts\ResizePanel.cs" />

@@ -12,6 +12,7 @@ public class FloorView : MonoBehaviour
 {
     public GameObject arcadeFloor, restaurantFloor, suiteFloor, lobbyFloor;     // prefabs for floors
     public Transform positionObject;
+    public GameObject people;
 
     public GameObject window;
 
@@ -36,15 +37,19 @@ public class FloorView : MonoBehaviour
     public void drawFloors()
     {
         List<FloorType> floors = floorManager.getFloors();
-        int num = 0;
+
+        int arcadeNum = 0;
+        int restaurantNum = 0;
+        int suiteNum = 0;
+
         foreach (FloorType floor in floors)
         {
             if (floor.Equals(FloorType.Arcade))
             {
                 GameObject newFloor = Instantiate(arcadeFloor, positionObject.position, positionObject.rotation);   // instantiates new floor
                 setupFloor(newFloor);
-                newFloor.name = "arcade " + num;
-                num++;
+                arcadeNum++;
+                newFloor.name = "Arcade " + arcadeNum;
                 if (floor.getVisibility())
                 {
                     newFloor.SetActive(true);
@@ -54,8 +59,8 @@ public class FloorView : MonoBehaviour
             {
                 GameObject newFloor = Instantiate(restaurantFloor, positionObject.position, positionObject.rotation);
                 setupFloor(newFloor);
-                newFloor.name = "restaurant " + num;
-                num++;
+                restaurantNum++;
+                newFloor.name = "Restaurant " + restaurantNum;
                 if (floor.getVisibility())
                 {
                     newFloor.SetActive(true);
@@ -66,8 +71,8 @@ public class FloorView : MonoBehaviour
             {
                 GameObject newFloor = Instantiate(suiteFloor, positionObject.position, positionObject.rotation);
                 setupFloor(newFloor);
-                newFloor.name = "suite " + num;
-                num++;
+                suiteNum++;
+                newFloor.name = "Suite " + suiteNum;
                 if (floor.getVisibility())
                 {
                     newFloor.SetActive(true);
@@ -84,6 +89,11 @@ public class FloorView : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void moveCustomers()
+    {
+        
     }
 
     private void setupFloor(GameObject floor)

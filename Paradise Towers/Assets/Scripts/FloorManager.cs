@@ -13,6 +13,7 @@ namespace context
     {
         public static int fid = 1;
         private List<FloorType> floors = new List<FloorType>();     // list of all floors in hotel
+        public List<string> customers = new List<string>();
 
         void Awake()
         {

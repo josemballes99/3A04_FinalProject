@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CustomerView : MonoBehaviour {
 
+    public CustomerManager customerManager;
+    public GameObject customerManagerCanvas;
+    public GameObject moveCustomerCanvas;
+
 	//For Animation
 	Animator anim;
 
@@ -12,9 +16,7 @@ public class CustomerView : MonoBehaviour {
 	// Customer For Selections
 	public bool isSelected;
 	public GameObject customerCanvas;
-
-
-
+    
 	// For Customer Movement
 	public float speed;
 	public bool isMoving;
@@ -49,6 +51,11 @@ public class CustomerView : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if ((customerManagerCanvas.activeSelf || moveCustomerCanvas.activeSelf) && !customerManager.canClickCustomers)
+        {
+            return;
+        }
+
 		// Checks User Input
 		if(platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer){
 			if(Input.touchCount > 0) {
@@ -58,7 +65,6 @@ public class CustomerView : MonoBehaviour {
 			}
 		}else if(platform == RuntimePlatform.OSXEditor || platform == RuntimePlatform.WindowsEditor){
 			if(Input.GetMouseButtonDown(0)) {
-				Debug.Log ("Touch");
 				checkTouch(Input.mousePosition);
 			}
 		}
@@ -103,10 +109,10 @@ public class CustomerView : MonoBehaviour {
 
 		//For Character Slection
 		if (isSelected) {
-			customerCanvas.SetActive (true);
+			customerCanvas.SetActive(true);
 			Stop ();
 		} else {
-			customerCanvas.SetActive (false);
+            customerCanvas.SetActive(false);
 			Resume ();
 		}
 		
@@ -124,8 +130,7 @@ public class CustomerView : MonoBehaviour {
 		Collider2D hit = Physics2D.OverlapPoint(touchpos);
 
 		if(hit){
-			Debug.Log("HIT");
 			isSelected = !isSelected;
-		}
+        }
 	}
 }
