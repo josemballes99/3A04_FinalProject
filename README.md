@@ -1,8 +1,5 @@
 # Project Name Source Code
 
-How To RUN
-------------------------------------------------------------------------------------------------------------------------------------------
-To run our application simply go to the directory that is compatible with your operating system and run the executable.
 
 How To Open With Unity
 ------------------------------------------------------------------------------------------------------------------------------------------
